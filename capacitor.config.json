@@ -1,0 +1,6 @@
+{
+  "appId": "com.wehealth",
+  "appName": "wehealth",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}
