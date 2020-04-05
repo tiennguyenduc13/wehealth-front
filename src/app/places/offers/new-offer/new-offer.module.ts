@@ -10,8 +10,8 @@ import { NewOfferPage } from './new-offer.page';
 const routes: Routes = [
   {
     path: '',
-    component: NewOfferPage
-  }
+    component: NewOfferPage,
+  },
 ];
 
 @NgModule({
@@ -19,8 +19,8 @@ const routes: Routes = [
     CommonModule,
     IonicModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
-  declarations: [NewOfferPage]
+  declarations: [NewOfferPage],
 })
 export class NewOfferPageModule {}

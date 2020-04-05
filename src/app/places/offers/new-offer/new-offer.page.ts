@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { LoadingController } from "@ionic/angular";
 
-import { PlacesService } from '../../places.service';
-import { IHealthChange } from '../../place.model';
-import { AuthService } from 'src/app/auth/auth.service';
+import { PlacesService } from "../../places.service";
+import { IHealthChange } from "../../place.model";
+import { AuthService } from "src/app/auth/auth.service";
 
 @Component({
-  selector: 'app-new-offer',
-  templateUrl: './new-offer.page.html',
-  styleUrls: ['./new-offer.page.scss']
+  selector: "app-new-offer",
+  templateUrl: "./new-offer.page.html",
+  styleUrls: ["./new-offer.page.scss"],
 })
 export class NewOfferPage implements OnInit {
   form: FormGroup;
@@ -24,23 +24,23 @@ export class NewOfferPage implements OnInit {
   ngOnInit() {
     this.form = new FormGroup({
       rdoPositive: new FormControl(null, {
-        updateOn: 'blur'
+        updateOn: "blur",
       }),
       rdoSymptoms: new FormControl(null, {
-        updateOn: 'blur'
+        updateOn: "blur",
       }),
       rdoExposed: new FormControl(null, {
-        updateOn: 'blur'
+        updateOn: "blur",
       }),
       rdoNormal: new FormControl(null, {
-        updateOn: 'blur'
-      })
+        updateOn: "blur",
+      }),
     });
   }
   saveMyHealthSignals(healthSignals: string[]) {
     this.placeService
       .updateHealthSignals(this.authService.userId, healthSignals)
-      .subscribe(positionMap => {});
+      .subscribe((positionMap) => {});
   }
 
   onCreateHealthChange() {
@@ -49,37 +49,37 @@ export class NewOfferPage implements OnInit {
     // }
     this.loadingCtrl
       .create({
-        message: 'Creating health change...'
+        message: "Creating health change...",
       })
-      .then(loadingEl => {
+      .then((loadingEl) => {
         loadingEl.present();
         const healthSignals: string[] = [];
 
         if (this.form.value.rdoPositive) {
-          healthSignals.push('positive');
+          healthSignals.push("positive");
         }
         if (this.form.value.rdoSymptoms) {
-          healthSignals.push('symptoms');
+          healthSignals.push("symptoms");
         }
         if (this.form.value.rdoExposed) {
-          healthSignals.push('exposed');
+          healthSignals.push("exposed");
         }
         if (this.form.value.rdoNormal) {
-          healthSignals.push('normal');
+          healthSignals.push("normal");
         }
         const healthChange: IHealthChange = {
           userId: this.authService.userId,
           healthSignals: healthSignals,
-          eventDate: new Date()
+          eventDate: new Date(),
         };
         this.placeService
           .addHealthChange(healthChange)
           .subscribe((newHealthChange: IHealthChange) => {
-            console.log('Done added here', newHealthChange);
+            console.log("Done added here", newHealthChange);
             this.saveMyHealthSignals(newHealthChange.healthSignals);
             loadingEl.dismiss();
             this.form.reset();
-            this.router.navigate(['/places/tabs/offers']);
+            this.router.navigate(["/places/tabs/offers"]);
           });
       });
   }
