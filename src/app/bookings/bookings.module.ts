@@ -1,17 +1,17 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { Routes, RouterModule } from "@angular/router";
+import { ReactiveFormsModule } from "@angular/forms";
+import { IonicModule } from "@ionic/angular";
 
-import { IonicModule } from '@ionic/angular';
-
-import { BookingsPage } from './bookings.page';
+import { BookingsPage } from "./bookings.page";
 
 const routes: Routes = [
   {
-    path: '',
-    component: BookingsPage
-  }
+    path: "",
+    component: BookingsPage,
+  },
 ];
 
 @NgModule({
@@ -19,8 +19,9 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    ReactiveFormsModule,
+    RouterModule.forChild(routes),
   ],
-  declarations: [BookingsPage]
+  declarations: [BookingsPage],
 })
 export class BookingsPageModule {}

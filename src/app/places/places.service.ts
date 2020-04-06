@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { take, map, tap, delay, switchMap } from 'rxjs/operators';
-import { IPositionMap, PositionMap } from './position-map.model';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { take, map, tap, switchMap } from "rxjs/operators";
+import { IPositionMap, PositionMap } from "./position-map.model";
 
-import { Place } from './place.model';
-import { AuthService } from '../auth/auth.service';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { IHealthChange, HealthChange } from './place.model';
-import { environment } from '../../environments/environment';
-import * as _ from 'lodash';
+import { Place } from "./place.model";
+import { AuthService } from "../auth/auth.service";
+import { BehaviorSubject, Observable } from "rxjs";
+import { IHealthChange, HealthChange } from "./place.model";
+import { environment } from "../../environments/environment";
+import * as _ from "lodash";
 
 interface PlaceData {
   availableFrom: string;
@@ -21,13 +21,13 @@ interface PlaceData {
 }
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class PlacesService {
   private _places = new BehaviorSubject<Place[]>([]);
-  private healthChangeUrl = environment.backendUrl + '/health-change';
+  private healthChangeUrl = environment.backendUrl + "/health-change";
   private _healthChanges = new BehaviorSubject<IHealthChange[]>([]);
-  private positionMapUrl = environment.backendUrl + '/position-map';
+  private positionMapUrl = environment.backendUrl + "/position-map";
 
   get places() {
     return this._places.asObservable();
@@ -37,7 +37,7 @@ export class PlacesService {
   }
   constructor(private authService: AuthService, private http: HttpClient) {}
   updatePosition(userId, position) {
-    console.log('ttt000 calling backend updatePosition', userId, position);
+    console.log("ttt000 calling backend updatePosition", userId, position);
     if (!_.isEmpty(userId) && !_.isEmpty(position)) {
       return this.http
         .post<IPositionMap>(
@@ -46,7 +46,7 @@ export class PlacesService {
         )
         .pipe(
           map((resData: IPositionMap) => {
-            console.log('ttt updatePosition resData', resData);
+            console.log("ttt updatePosition resData", resData);
           })
         );
     }
@@ -76,7 +76,7 @@ export class PlacesService {
       .get<IHealthChange[]>(`${this.healthChangeUrl}/listByUserId/${userId}`)
       .pipe(
         map((resData) => {
-          console.log('loadHealthChanges result: ', resData);
+          console.log("loadHealthChanges result: ", resData);
           const healthChanges = [];
           for (const key in resData) {
             if (resData.hasOwnProperty(key)) {
@@ -90,23 +90,23 @@ export class PlacesService {
             }
           }
           console.log(
-            'loadHealthChanges result healthChanges: ',
+            "loadHealthChanges result healthChanges: ",
             healthChanges
           );
 
-          return _.orderBy(healthChanges, ['eventDate'], ['desc']);
+          return _.orderBy(healthChanges, ["eventDate"], ["desc"]);
         })
       );
   }
   addHealthChange(healthChange: IHealthChange) {
     console.log(healthChange);
-    return this.http.post<IHealthChange>(this.healthChangeUrl + '/add', {
+    return this.http.post<IHealthChange>(this.healthChangeUrl + "/add", {
       ...healthChange,
       id: null,
     });
   }
   updateHealthSignals(userId, healthSignals: string[]) {
-    console.log('ttt000 calling backend updateHealthSignals', userId, {
+    console.log("ttt000 calling backend updateHealthSignals", userId, {
       healthSignals,
     });
     if (!_.isEmpty(userId) && !_.isEmpty(healthSignals)) {
@@ -117,7 +117,7 @@ export class PlacesService {
         )
         .pipe(
           map((resData: IPositionMap) => {
-            console.log('ttt updateHealthSignals resData', resData);
+            console.log("ttt updateHealthSignals resData", resData);
           })
         );
     }
@@ -155,7 +155,7 @@ export class PlacesService {
       Math.random().toString(),
       title,
       description,
-      'https://lonelyplanetimages.imgix.net/mastheads/GettyImages-538096543_medium.jpg?sharp=10&vib=20&w=1200',
+      "https://lonelyplanetimages.imgix.net/mastheads/GettyImages-538096543_medium.jpg?sharp=10&vib=20&w=1200",
       price,
       dateFrom,
       dateTo,
@@ -163,7 +163,7 @@ export class PlacesService {
     );
     return this.http
       .post<{ name: string }>(
-        'https://ionic-angular-course-77f81.firebaseio.com/offered-places.json',
+        "https://ionic-angular-course-77f81.firebaseio.com/offered-places.json",
         {
           ...newPlace,
           id: null,
