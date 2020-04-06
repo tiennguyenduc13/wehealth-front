@@ -4,8 +4,9 @@ import { ActivatedRoute } from "@angular/router";
 
 import { SettingService } from "./setting.service";
 import { AuthService } from "../auth/auth.service";
-import { ISetting } from "./setting.model";
+import { ISetting, Setting } from "./setting.model";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import _ from "lodash";
 
 @Component({
   selector: "app-setting",
@@ -32,11 +33,20 @@ export class SettingPage implements OnInit {
         (setting: ISetting) => {
           this.setting = setting;
           this.form = new FormGroup({
-            alertRadius: new FormControl(
-              this.setting.alertRadius ? this.setting.alertRadius : "1",
+            alertDistanceEnabled: new FormControl(
+              this.setting.alertDistance && this.setting.alertDistance.enabled
+                ? this.setting.alertDistance.enabled
+                : false,
               {
                 updateOn: "blur",
-                validators: [Validators.required],
+              }
+            ),
+            alertDistanceRadius: new FormControl(
+              this.setting.alertDistance && this.setting.alertDistance.radius
+                ? this.setting.alertDistance.radius
+                : false,
+              {
+                updateOn: "blur",
               }
             ),
           });
@@ -75,7 +85,10 @@ export class SettingPage implements OnInit {
       })
       .then((loadingEl) => {
         loadingEl.present();
-        this.setting.alertRadius = this.form.value.alertRadius;
+        _.set(this.setting, "alertDistance", {
+          enabled: this.form.value.alertDistanceEnabled,
+          radius: this.form.value.alertDistanceRadius,
+        });
         console.log("onUpdateSetting this.setting", this.setting);
 
         this.settingService

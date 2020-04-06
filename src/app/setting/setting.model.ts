@@ -1,11 +1,17 @@
 export interface ISetting {
   userId: string;
-  alertRadius: number;
+  alertDistance: {
+    enabled: boolean;
+    radius: number;
+  };
 }
 export class Setting implements ISetting {
   constructor(
     public id: string,
     public userId: string,
-    public alertRadius: number
+    public alertDistance: {
+      enabled: boolean;
+      radius: number;
+    }
   ) {}
 }

@@ -84,9 +84,9 @@ export class DiscoverPage implements OnInit, AfterViewInit, OnDestroy {
       this.showMap();
     });
   }
-  createMarker(title: string, icon: object) {
+  createMarker(title: string, icon: object, position) {
     return new this.googleMaps.Marker({
-      position: this.center,
+      position: position,
       map: this.mainMap,
       title: title,
       icon: icon,
@@ -95,14 +95,17 @@ export class DiscoverPage implements OnInit, AfterViewInit, OnDestroy {
   loadPositionMaps() {
     return this.placeService.loadPositionMaps();
   }
-  findIconImage(healthSignals: string[]) {
-    // let iconImage = "4";
-    let iconImage = "";
-    iconImage = healthSignals.includes("positive") ? "1" : iconImage;
-    iconImage = healthSignals.includes("symptoms") ? "2" : iconImage;
-    iconImage = healthSignals.includes("exposed") ? "3" : iconImage;
+  findMasterHealthSignal(healthSignals: string[]) {
+    let master = "normal";
+    master = healthSignals.includes("exposed") ? "exposed" : master;
+    master = healthSignals.includes("symptoms") ? "symptoms" : master;
+    master = healthSignals.includes("positive") ? "positive" : master;
 
-    return "assets/icon/health/" + iconImage + ".png";
+    return master;
+  }
+
+  findIconImage(healthSignal: string) {
+    return "assets/icon/health/" + healthSignal + ".png";
   }
   shouldShowMarker(healthSignals: string[]): boolean {
     if (
@@ -129,20 +132,23 @@ export class DiscoverPage implements OnInit, AfterViewInit, OnDestroy {
       // set marker for me
       let marker = this.createMarker(
         "Me",
-        this.createIcon("assets/icon/itsme.png", 25)
+        this.createIcon("assets/icon/itsme.png", 25),
+        this.center
       );
       marker.setMap(this.mainMap);
-      console.log("marker cur user", this.authService.userId);
       positionMaps.forEach((positionMap: IPositionMap) => {
         if (
           positionMap.userId !== this.authService.userId &&
           this.shouldShowMarker(positionMap.healthSignals)
         ) {
-          console.log("marker ", positionMap.userId);
+          const masterHealthSignal = this.findMasterHealthSignal(
+            positionMap.healthSignals
+          );
           // set marker for others
           marker = this.createMarker(
-            positionMap.userId,
-            this.createIcon(this.findIconImage(positionMap.healthSignals), 25)
+            masterHealthSignal,
+            this.createIcon(this.findIconImage(masterHealthSignal), 25),
+            positionMap.position
           );
           marker.setMap(this.mainMap);
         }
