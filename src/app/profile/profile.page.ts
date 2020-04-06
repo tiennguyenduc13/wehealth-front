@@ -8,11 +8,11 @@ import { IProfile } from "./profile.model";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
-  selector: "app-bookings",
-  templateUrl: "./bookings.page.html",
-  styleUrls: ["./bookings.page.scss"],
+  selector: "app-profile",
+  templateUrl: "./profile.page.html",
+  styleUrls: ["./profile.page.scss"],
 })
-export class BookingsPage implements OnInit {
+export class ProfilePage implements OnInit {
   isLoading = false;
   form: FormGroup;
   profile: IProfile;
@@ -46,25 +46,22 @@ export class BookingsPage implements OnInit {
                 validators: [Validators.required],
               }
             ),
+            dateOfBirth: new FormControl(
+              this.profile.dateOfBirth ? this.profile.dateOfBirth : "",
+              {
+                updateOn: "blur",
+                validators: [Validators.required],
+              }
+            ),
+            gender: new FormControl(
+              this.profile.gender ? this.profile.gender : "",
+              {
+                updateOn: "blur",
+                validators: [Validators.required],
+              }
+            ),
           });
           this.isLoading = false;
-
-          this.alertCtrl
-            .create({
-              header: "Profile",
-              message: "Profile saved!",
-              buttons: [
-                {
-                  text: "Okay",
-                  handler: () => {
-                    console.log("Save done");
-                  },
-                },
-              ],
-            })
-            .then((alertEl) => {
-              alertEl.present();
-            });
         },
         (error) => {
           this.alertCtrl
@@ -101,12 +98,31 @@ export class BookingsPage implements OnInit {
         loadingEl.present();
         this.profile.email = this.form.value.email;
         this.profile.cellPhone = this.form.value.cellPhone;
+        this.profile.dateOfBirth = this.form.value.dateOfBirth;
+        this.profile.gender = this.form.value.gender;
         console.log("onUpdateProfile this.profile", this.profile);
 
         this.profileService
           .updateProfile(this.authService.userId, this.profile)
           .subscribe(() => {
             loadingEl.dismiss();
+
+            this.alertCtrl
+              .create({
+                header: "Profile",
+                message: "Profile saved!",
+                buttons: [
+                  {
+                    text: "Okay",
+                    handler: () => {
+                      console.log("Save done");
+                    },
+                  },
+                ],
+              })
+              .then((alertEl) => {
+                alertEl.present();
+              });
           });
       });
   }

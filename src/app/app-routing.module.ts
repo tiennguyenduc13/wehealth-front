@@ -17,10 +17,10 @@ const routes: Routes = [
     canLoad: [AuthGuard],
   },
   {
-    path: "bookings",
+    path: "profile",
     loadChildren: () =>
-      import("./bookings/bookings.module").then((m) => m.BookingsPageModule),
-    canLoad: [AuthGuard]
+      import("./profile/profile.module").then((m) => m.ProfilePageModule),
+    canLoad: [AuthGuard],
   },
 ];
 

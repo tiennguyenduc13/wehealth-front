@@ -18,34 +18,25 @@ const routes: Routes = [
                 (m) => m.DiscoverPageModule
               ),
           },
-          {
-            path: ":placeId",
-            loadChildren: () =>
-              import("./discover/place-detail/place-detail.module").then(
-                (m) => m.PlaceDetailPageModule
-              ),
-          },
         ],
       },
       {
-        path: "offers",
+        path: "health-change",
         children: [
           {
             path: "",
             loadChildren: () =>
-              import("./offers/offers.module").then((m) => m.OffersPageModule),
+              import("./health-change/health-change.module").then(
+                (m) => m.HealthChangePageModule
+              ),
           },
           {
             path: "new",
             loadChildren: () =>
-              import("./offers/new-offer/new-offer.module").then(
-                (m) => m.NewOfferPageModule
-              ),
+              import(
+                "./health-change/new-health-change/new-health-change.module"
+              ).then((m) => m.NewHealthChangePageModule),
           },
-          //   {
-          //     path: 'edit/:placeId',
-          //     loadChildren: () => import('./offers/edit-offer/edit-offer.module').then(m => m.EditOfferPageModule)
-          //   }
         ],
       },
       {

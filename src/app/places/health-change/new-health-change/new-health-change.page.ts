@@ -8,11 +8,11 @@ import { IHealthChange } from "../../place.model";
 import { AuthService } from "src/app/auth/auth.service";
 
 @Component({
-  selector: "app-new-offer",
-  templateUrl: "./new-offer.page.html",
-  styleUrls: ["./new-offer.page.scss"],
+  selector: "app-new-health-change",
+  templateUrl: "./new-health-change.page.html",
+  styleUrls: ["./new-health-change.page.scss"],
 })
-export class NewOfferPage implements OnInit {
+export class NewHealthChangePage implements OnInit {
   form: FormGroup;
 
   constructor(
@@ -79,7 +79,7 @@ export class NewOfferPage implements OnInit {
             this.saveMyHealthSignals(newHealthChange.healthSignals);
             loadingEl.dismiss();
             this.form.reset();
-            this.router.navigate(["/places/tabs/offers"]);
+            this.router.navigate(["/places/tabs/health-change"]);
           });
       });
   }
