@@ -22,6 +22,12 @@ const routes: Routes = [
       import("./profile/profile.module").then((m) => m.ProfilePageModule),
     canLoad: [AuthGuard],
   },
+  {
+    path: "setting",
+    loadChildren: () =>
+      import("./setting/setting.module").then((m) => m.SettingPageModule),
+    canLoad: [AuthGuard],
+  },
 ];
 
 @NgModule({
