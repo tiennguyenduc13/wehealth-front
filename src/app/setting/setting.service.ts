@@ -1,36 +1,34 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { map } from "rxjs/operators";
-import { ISetting } from "./setting.model";
-import { environment } from "../../environments/environment";
-import * as _ from "lodash";
-import { Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { ISetting } from './setting.model';
+import { environment } from '../../environments/environment';
+import * as _ from 'lodash';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class SettingService {
-  private settingUrl = environment.backendUrl + "/setting";
+  private settingUrl = environment.backendUrl + '/setting';
 
   constructor(private http: HttpClient) {}
   loadSetting(userId: string): Observable<ISetting> {
     return this.http.get<ISetting>(`${this.settingUrl}/${userId}`).pipe(
       map((resData) => {
-        console.log("loadSetting result: ", resData);
-        debugger;
+        console.log('loadSetting result: ', resData);
         return resData;
       })
     );
   }
   updateSetting(userId, setting) {
-    console.log("Calling backend updateSetting", userId, setting);
+    console.log('Calling backend updateSetting', userId, setting);
     if (!_.isEmpty(userId) && !_.isEmpty(setting)) {
       return this.http
         .post<ISetting>(`${this.settingUrl}/updateSetting/${userId}`, setting)
         .pipe(
           map((resData: ISetting) => {
-            debugger;
-            console.log("ttt updateSetting resData", resData);
+            console.log('ttt updateSetting resData', resData);
           })
         );
     }

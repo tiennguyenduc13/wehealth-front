@@ -3,7 +3,7 @@ import { LoadingController, AlertController } from "@ionic/angular";
 import { ActivatedRoute } from "@angular/router";
 
 import { ProfileService } from "./profile.service";
-import { AuthService } from "../auth/auth.service";
+import { AuthService } from "../auth/login/auth.service";
 import { IProfile } from "./profile.model";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 

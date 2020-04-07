@@ -3,7 +3,7 @@ import { LoadingController, AlertController } from "@ionic/angular";
 import { ActivatedRoute } from "@angular/router";
 
 import { SettingService } from "./setting.service";
-import { AuthService } from "../auth/auth.service";
+import { AuthService } from "../auth/login/auth.service";
 import { ISetting, Setting } from "./setting.model";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import _ from "lodash";

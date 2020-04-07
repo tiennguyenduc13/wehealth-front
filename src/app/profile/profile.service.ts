@@ -17,7 +17,6 @@ export class ProfileService {
     return this.http.get<IProfile>(`${this.profileUrl}/${userId}`).pipe(
       map((resData) => {
         console.log("loadProfile result: ", resData);
-        debugger;
         return resData;
       })
     );
@@ -29,7 +28,6 @@ export class ProfileService {
         .post<IProfile>(`${this.profileUrl}/updateProfile/${userId}`, profile)
         .pipe(
           map((resData: IProfile) => {
-            debugger;
             console.log("ttt updateProfile resData", resData);
           })
         );

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { tap } from 'rxjs/operators';
 
 export interface AuthResponseData {
@@ -14,7 +14,7 @@ export interface AuthResponseData {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private _userIsAuthenticated = false;
@@ -34,13 +34,6 @@ export class AuthService {
   }
 
   constructor(private http: HttpClient) {}
-
-  signup(email: string, password: string) {
-    return this.http.post<AuthResponseData>(
-      `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${environment.firebaseAPIKey}`,
-      { email: email, password: password, returnSecureToken: true }
-    );
-  }
 
   login(email: string, password: string) {
     return this.http

@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  //   backendUrl: "http://localhost:4500",
-  backendUrl: 'https://guarded-harbor-94118.herokuapp.com',
+  backendUrl: 'http://localhost:4500',
+  //   backendUrl: 'https://guarded-harbor-94118.herokuapp.com',
   googleMapsAPIKey: 'AIzaSyBQvIddOL1XiaVuaUIuwfeCquiaGUD5dsg',
   firebaseAPIKey: 'AIzaSyD3lUEf2B0nObOVUlxVJsI3bGQG8HPsPWc',
 };

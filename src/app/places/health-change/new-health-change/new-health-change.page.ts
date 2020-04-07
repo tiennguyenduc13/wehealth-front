@@ -5,7 +5,7 @@ import { LoadingController } from "@ionic/angular";
 
 import { PlacesService } from "../../places.service";
 import { IHealthChange } from "../../place.model";
-import { AuthService } from "src/app/auth/auth.service";
+import { AuthService } from "src/app/auth/login/auth.service";
 
 @Component({
   selector: "app-new-health-change",

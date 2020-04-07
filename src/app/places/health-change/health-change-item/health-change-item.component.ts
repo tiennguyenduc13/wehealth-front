@@ -3,11 +3,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { IHealthChange } from '../../place.model';
 
 @Component({
-  selector: 'app-offer-item',
-  templateUrl: './offer-item.component.html',
-  styleUrls: ['./offer-item.component.scss']
+  selector: 'app-health-change-item',
+  templateUrl: './health-change-item.component.html',
+  styleUrls: ['./health-change-item.component.scss'],
 })
-export class OfferItemComponent implements OnInit {
+export class HealthChangeItemComponent implements OnInit {
   @Input() healthChange: IHealthChange;
 
   constructor() {}

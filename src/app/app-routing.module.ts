@@ -1,31 +1,36 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuard } from "./auth/auth.guard";
+import { AuthGuard } from './auth/login/auth.guard';
 
 const routes: Routes = [
-  { path: "", redirectTo: "places", pathMatch: "full" },
+  { path: '', redirectTo: 'places', pathMatch: 'full' },
   {
-    path: "auth",
+    path: 'auth',
     loadChildren: () =>
-      import("./auth/auth.module").then((m) => m.AuthPageModule),
+      import('./auth/login/auth.module').then((m) => m.AuthPageModule),
   },
   {
-    path: "places",
+    path: 'signup',
     loadChildren: () =>
-      import("./places/places.module").then((m) => m.PlacesPageModule),
+      import('./auth/signup/signup.module').then((m) => m.SignUpPageModule),
+  },
+  {
+    path: 'places',
+    loadChildren: () =>
+      import('./places/places.module').then((m) => m.PlacesPageModule),
     canLoad: [AuthGuard],
   },
   {
-    path: "profile",
+    path: 'profile',
     loadChildren: () =>
-      import("./profile/profile.module").then((m) => m.ProfilePageModule),
+      import('./profile/profile.module').then((m) => m.ProfilePageModule),
     canLoad: [AuthGuard],
   },
   {
-    path: "setting",
+    path: 'setting',
     loadChildren: () =>
-      import("./setting/setting.module").then((m) => m.SettingPageModule),
+      import('./setting/setting.module').then((m) => m.SettingPageModule),
     canLoad: [AuthGuard],
   },
 ];

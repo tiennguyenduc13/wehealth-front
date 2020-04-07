@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{ isLogin ? 'Login' : 'Signup' }}</ion-title>
+    <ion-title>Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -60,7 +60,7 @@
             expand="block"
             (click)="onSwitchAuthMode()"
           >
-            Switch to {{ isLogin ? 'Signup' : 'Login' }}
+            Switch to Signup
           </ion-button>
           <ion-button
             type="submit"
@@ -68,7 +68,7 @@
             expand="block"
             [disabled]="!f.valid"
           >
-            {{ isLogin ? 'Login' : 'Signup' }}
+            Login
           </ion-button>
         </ion-col>
       </ion-row>

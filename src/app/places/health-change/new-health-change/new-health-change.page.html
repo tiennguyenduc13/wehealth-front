@@ -1,7 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/places/tabs/health-change"></ion-back-button>
+      <ion-back-button
+        defaultHref="/places/tabs/health-change"
+      ></ion-back-button>
     </ion-buttons>
     <ion-title>New Health Change</ion-title>
     <ion-buttons slot="primary">
@@ -29,7 +31,7 @@
                 formControlName="rdoPositive"
               ></ion-checkbox>
               <ion-label style="padding: 0.5em;">
-                <p>Tested positive for COVID-19</p></ion-label
+                <p>1. Tested positive for COVID-19</p></ion-label
               >
             </ion-item>
             <ion-item>
@@ -38,7 +40,7 @@
                 formControlName="rdoSymptoms"
               ></ion-checkbox>
               <ion-label style="padding: 0.5em;"
-                ><p>Have any of the following symptoms</p>
+                ><p>2. Have any of the following symptoms</p>
                 <p>
                   (fever, cough, shortness of breath, diarrhea, nausea,
                   vomiting)
@@ -51,10 +53,12 @@
                 formControlName="rdoExposed"
               ></ion-checkbox>
               <ion-label style="padding: 0.5em;"
-                ><p>Been exposed to someone who tested positive for COVD-19</p>
+                ><p>
+                  3. Been exposed to someone who tested positive for COVID-19
+                </p>
               </ion-label>
             </ion-item>
-            <ion-item>
+            <!-- <ion-item>
               <ion-checkbox
                 color="dark"
                 formControlName="rdoNormal"
@@ -62,7 +66,7 @@
               <ion-label style="padding: 0.5em;"
                 ><p>Normal (no symptoms, no exposure)</p>
               </ion-label>
-            </ion-item>
+            </ion-item> -->
           </ion-list>
         </ion-col>
       </ion-row>

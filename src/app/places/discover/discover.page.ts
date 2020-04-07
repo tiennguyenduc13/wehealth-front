@@ -10,7 +10,7 @@ import {
 
 import { environment } from "../../../environments/environment";
 import { Plugins, Capacitor, GeolocationPosition } from "@capacitor/core";
-import { AuthService } from "src/app/auth/auth.service";
+import { AuthService } from "src/app/auth/login/auth.service";
 import { PlacesService } from "../places.service";
 import { IPositionMap } from "../position-map.model";
 import { BackgroundMode } from "@ionic-native/background-mode/ngx";

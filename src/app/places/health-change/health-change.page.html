@@ -24,8 +24,10 @@
           *ngIf="!isLoading && healthChanges && healthChanges.length <= 0"
         >
           <p>No Health status found! You can create one!</p>
-          <ion-button color="primary" routerLink="/places/tabs/offers/new"
-            >Create first Health status</ion-button
+          <ion-button
+            color="primary"
+            routerLink="/places/tabs/health-change/new"
+            >Create first Health record</ion-button
           >
         </div>
         <ion-list
@@ -35,10 +37,15 @@
             *ngFor="let healthChange of healthChanges"
             #slidingItem
           >
-            <app-offer-item [healthChange]="healthChange"></app-offer-item>
-            <ion-item-options side="end">
-              <ion-item-option color="secondary">
-                <ion-icon name="create" slot="icon-only"></ion-icon>
+            <app-health-change-item
+              [healthChange]="healthChange"
+            ></app-health-change-item>
+            <ion-item-options>
+              <ion-item-option
+                color="danger"
+                (click)="onDelete(healthChange.id)"
+              >
+                <ion-icon name="trash" slot="icon-only"></ion-icon>
               </ion-item-option>
             </ion-item-options>
           </ion-item-sliding>
