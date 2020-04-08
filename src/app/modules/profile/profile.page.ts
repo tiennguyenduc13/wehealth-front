@@ -4,7 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 
 import { ProfileService } from "./profile.service";
 import { AuthService } from "../auth/login/auth.service";
-import { IProfile } from "./profile.model";
+import { IProfile } from "../../models/profile.model";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({

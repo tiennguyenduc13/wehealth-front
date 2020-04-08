@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { PlacesService } from '../places.service';
-import { HealthChange } from '../place.model';
-import { AuthService } from 'src/app/auth/login/auth.service';
+import { HealthChange } from '../../models/place.model';
+import { AuthService } from 'src/app/modules/auth/login/auth.service';
 
 @Component({
   selector: 'app-healthChange',

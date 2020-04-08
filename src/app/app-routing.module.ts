@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuard } from './auth/login/auth.guard';
+import { AuthGuard } from './modules/auth/login/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'places', pathMatch: 'full' },
   {
     path: 'auth',
     loadChildren: () =>
-      import('./auth/login/auth.module').then((m) => m.AuthPageModule),
+      import('./modules/auth/login/auth.module').then((m) => m.AuthPageModule),
   },
   {
     path: 'signup',
     loadChildren: () =>
-      import('./auth/signup/signup.module').then((m) => m.SignUpPageModule),
+      import('./modules/auth/signup/signup.module').then((m) => m.SignUpPageModule),
   },
   {
     path: 'places',
@@ -24,13 +24,13 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () =>
-      import('./profile/profile.module').then((m) => m.ProfilePageModule),
+      import('./modules/profile/profile.module').then((m) => m.ProfilePageModule),
     canLoad: [AuthGuard],
   },
   {
     path: 'setting',
     loadChildren: () =>
-      import('./setting/setting.module').then((m) => m.SettingPageModule),
+      import('./modules/setting/setting.module').then((m) => m.SettingPageModule),
     canLoad: [AuthGuard],
   },
 ];

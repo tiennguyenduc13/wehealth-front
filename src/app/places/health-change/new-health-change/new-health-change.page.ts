@@ -4,8 +4,8 @@ import { Router } from "@angular/router";
 import { LoadingController } from "@ionic/angular";
 
 import { PlacesService } from "../../places.service";
-import { IHealthChange } from "../../place.model";
-import { AuthService } from "src/app/auth/login/auth.service";
+import { IHealthChange } from "../../../models/place.model";
+import { AuthService } from "src/app/modules/auth/login/auth.service";
 
 @Component({
   selector: "app-new-health-change",

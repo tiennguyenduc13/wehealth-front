@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs/operators";
-import { IProfile } from "./profile.model";
-import { environment } from "../../environments/environment";
+import { IProfile } from "../../models/profile.model";
+import { environment } from "../../../environments/environment";
 import * as _ from "lodash";
 import { Observable } from "rxjs";
 
