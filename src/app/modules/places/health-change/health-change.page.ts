@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { PlacesService } from '../places.service';
-import { HealthChange } from '../../models/place.model';
+import { HealthChange } from '../../../models/place.model';
 import { AuthService } from 'src/app/modules/auth/login/auth.service';
 
 @Component({

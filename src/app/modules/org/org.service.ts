@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { take, map, tap, switchMap } from 'rxjs/operators';
-import { IPositionMap, PositionMap } from '../models/position-map.model';
+import { IPositionMap, PositionMap } from '../../models/position-map.model';
 
-import { AuthService } from '../modules/auth/login/auth.service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { IHealthChange, HealthChange } from '../models/place.model';
-import { environment } from '../../environments/environment';
+import { IHealthChange, HealthChange } from '../../models/place.model';
+import { environment } from '../../../environments/environment';
 import * as _ from 'lodash';
 
 @Injectable({

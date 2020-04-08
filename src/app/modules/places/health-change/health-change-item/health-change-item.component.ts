@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { IHealthChange } from '../../../models/place.model';
+import { IHealthChange } from '../../../../models/place.model';
 
 @Component({
   selector: 'app-health-change-item',

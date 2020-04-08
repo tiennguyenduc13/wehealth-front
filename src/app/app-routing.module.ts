@@ -13,24 +13,36 @@ const routes: Routes = [
   {
     path: 'signup',
     loadChildren: () =>
-      import('./modules/auth/signup/signup.module').then((m) => m.SignUpPageModule),
+      import('./modules/auth/signup/signup.module').then(
+        (m) => m.SignUpPageModule
+      ),
   },
   {
     path: 'places',
     loadChildren: () =>
-      import('./places/places.module').then((m) => m.PlacesPageModule),
+      import('./modules/places/places.module').then((m) => m.PlacesPageModule),
+    canLoad: [AuthGuard],
+  },
+  {
+    path: 'org',
+    loadChildren: () =>
+      import('./modules/org/org.module').then((m) => m.OrgPageModule),
     canLoad: [AuthGuard],
   },
   {
     path: 'profile',
     loadChildren: () =>
-      import('./modules/profile/profile.module').then((m) => m.ProfilePageModule),
+      import('./modules/profile/profile.module').then(
+        (m) => m.ProfilePageModule
+      ),
     canLoad: [AuthGuard],
   },
   {
     path: 'setting',
     loadChildren: () =>
-      import('./modules/setting/setting.module').then((m) => m.SettingPageModule),
+      import('./modules/setting/setting.module').then(
+        (m) => m.SettingPageModule
+      ),
     canLoad: [AuthGuard],
   },
 ];
