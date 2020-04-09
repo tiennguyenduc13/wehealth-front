@@ -2,8 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { LoadingController, AlertController } from "@ionic/angular";
 import { ActivatedRoute } from "@angular/router";
 
-import { ProfileService } from "./profile.service";
-import { AuthService } from "../auth/login/auth.service";
+import { ProfileService } from "../../services/profile.service";
+import { AuthService } from "../../services/auth.service";
 import { IProfile } from "../../models/profile.model";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 

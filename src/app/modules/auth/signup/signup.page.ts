@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 
-import { SignUpService, SignUpResponseData } from './signup.service';
+import { SignUpService, SignUpResponseData } from '../../../services/signup.service';
 
 @Component({
   selector: 'app-signUp',

@@ -3,9 +3,9 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { LoadingController } from "@ionic/angular";
 
-import { PlacesService } from "../../places.service";
+import { PlacesService } from "../../../../services/places.service";
 import { IHealthChange } from "../../../../models/place.model";
-import { AuthService } from "src/app/modules/auth/login/auth.service";
+import { AuthService } from "src/app/services/auth.service";
 
 @Component({
   selector: "app-new-health-change",

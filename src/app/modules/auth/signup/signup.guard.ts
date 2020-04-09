@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanLoad, Route, UrlSegment, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { SignUpService } from './signup.service';
+import { SignUpService } from '../../../services/signup.service';
 
 @Injectable({
   providedIn: 'root',

@@ -2,8 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { LoadingController, AlertController } from "@ionic/angular";
 import { ActivatedRoute } from "@angular/router";
 
-import { SettingService } from "./setting.service";
-import { AuthService } from "../auth/login/auth.service";
+import { SettingService } from "../../services/setting.service";
+import { AuthService } from "../../services/auth.service";
 import { ISetting } from "../../models/setting.model";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import _ from "lodash";

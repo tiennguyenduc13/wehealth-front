@@ -1,18 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
-
-import { PlacesService } from '../places.service';
+import { Component, OnInit } from '@angular/core';
+import { PlacesService } from '../../../services/places.service';
 import { HealthChange } from '../../../models/place.model';
-import { AuthService } from 'src/app/modules/auth/login/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-healthChange',
   templateUrl: './health-change.page.html',
   styleUrls: ['./health-change.page.scss'],
 })
-export class HealthChangePage implements OnInit, OnDestroy {
+export class HealthChangePage implements OnInit {
   isLoading = false;
-  private placesSub: Subscription;
   healthChanges: HealthChange[];
 
   constructor(
@@ -42,10 +39,5 @@ export class HealthChangePage implements OnInit, OnDestroy {
     this.placesService.deleteHealthChange(id).subscribe((healthChangeId) => {
       this.loadHealthChanges();
     });
-  }
-  ngOnDestroy() {
-    if (this.placesSub) {
-      this.placesSub.unsubscribe();
-    }
   }
 }

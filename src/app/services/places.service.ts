@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { take, map, tap, switchMap } from 'rxjs/operators';
-import { IPositionMap, PositionMap } from '../../models/position-map.model';
+import { IPositionMap, PositionMap } from '../models/position-map.model';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { IHealthChange, HealthChange } from '../../models/place.model';
-import { environment } from '../../../environments/environment';
+import { IHealthChange, HealthChange } from '../models/place.model';
+import { environment } from '../../environments/environment';
 import * as _ from 'lodash';
 
 @Injectable({
@@ -38,19 +38,12 @@ export class PlacesService {
   loadPositionMaps(): Observable<IPositionMap[]> {
     return this.http.get<IPositionMap[]>(`${this.positionMapUrl}/list`).pipe(
       map((resData) => {
-        const positionMaps = [];
-        for (const key in resData) {
-          if (resData.hasOwnProperty(key)) {
-            const newPositionMap: PositionMap = {
-              id: key,
-              position: resData[key].position,
-              userId: resData[key].userId,
-              healthSignals: resData[key].healthSignals,
-              eventDate: resData[key].eventDate,
-            };
-            positionMaps.push(newPositionMap);
-          }
-        }
+        const positionMaps = resData.map(function (obj) {
+          obj['id'] = obj['_id'];
+          delete obj['_id'];
+          return obj;
+        });
+
         return positionMaps;
       })
     );
@@ -61,17 +54,12 @@ export class PlacesService {
       .get<any[]>(`${this.healthChangeUrl}/listByUserId/${userId}`)
       .pipe(
         map((resData) => {
-          console.log('loadHealthChanges result: ', resData);
-          const healthChanges: HealthChange[] = [];
-          resData.forEach((healthChangeData) => {
-            const newHealthChange: HealthChange = {
-              id: healthChangeData._id,
-              userId: healthChangeData.userId,
-              healthSignals: healthChangeData.healthSignals,
-              eventDate: healthChangeData.eventDate,
-            };
-            healthChanges.push(newHealthChange);
+          const healthChanges = resData.map(function (obj) {
+            obj['id'] = obj['_id'];
+            delete obj['_id'];
+            return obj;
           });
+
           console.log(
             'loadHealthChanges result healthChanges: ',
             healthChanges

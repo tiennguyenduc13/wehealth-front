@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { ISetting } from '../../models/setting.model';
-import { environment } from '../../../environments/environment';
+import { ISetting } from '../models/setting.model';
+import { environment } from '../../environments/environment';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
 

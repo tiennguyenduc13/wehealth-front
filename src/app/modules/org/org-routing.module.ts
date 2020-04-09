@@ -4,51 +4,54 @@ import { RouterModule, Routes } from '@angular/router';
 import { OrgPage } from './org.page';
 
 const routes: Routes = [
-  //   {
-  //     path: 'tabs',
-  //     component: OrgPage,
-  //     children: [
-  //       {
-  //         path: 'discover',
-  //         children: [
-  //           {
-  //             path: '',
-  //             loadChildren: () =>
-  //               import('./discover/discover.module').then(
-  //                 (m) => m.DiscoverPageModule
-  //               ),
-  //           },
-  //         ],
-  //       },
-  //       {
-  //         path: 'health-change',
-  //         children: [
-  //           {
-  //             path: '',
-  //             loadChildren: () =>
-  //               import('./health-change/health-change.module').then(
-  //                 (m) => m.HealthChangePageModule
-  //               ),
-  //           },
-  //           {
-  //             path: 'new',
-  //             loadChildren: () =>
-  //               import(
-  //                 './health-change/new-health-change/new-health-change.module'
-  //               ).then((m) => m.NewHealthChangePageModule),
-  //           },
-  //         ],
-  //       },
-  //       {
-  //         path: '',
-  //         redirectTo: '/places/tabs/discover',
-  //         pathMatch: 'full',
-  //       },
-  //     ],
-  //   },
+  {
+    path: 'tabs',
+    component: OrgPage,
+    children: [
+      {
+        path: 'join',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./my-org/join-org/join-org.module').then(
+                (m) => m.JoinOrgPageModule
+              ),
+          },
+        ],
+      },
+      {
+        path: 'create',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./my-org/new-org/new-org.module').then(
+                (m) => m.NewOrgPageModule
+              ),
+          },
+        ],
+      },
+      {
+        path: '',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./my-org/my-org.module').then((m) => m.MyOrgPageModule),
+          },
+        ],
+      },
+      {
+        path: '',
+        redirectTo: '/org/tabs/my-org',
+        pathMatch: 'full',
+      },
+    ],
+  },
   {
     path: '',
-    redirectTo: '/places/tabs/discover',
+    redirectTo: '/org/tabs/my-org',
     pathMatch: 'full',
   },
 ];
