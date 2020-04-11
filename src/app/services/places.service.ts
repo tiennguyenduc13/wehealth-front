@@ -38,13 +38,13 @@ export class PlacesService {
   loadPositionMaps(): Observable<IPositionMap[]> {
     return this.http.get<IPositionMap[]>(`${this.positionMapUrl}/list`).pipe(
       map((resData) => {
-        const positionMaps = resData.map(function (obj) {
-          obj['id'] = obj['_id'];
-          delete obj['_id'];
-          return obj;
-        });
+        // const positionMaps = resData.map(function (obj) {
+        //   obj['id'] = obj['_id'];
+        //   delete obj['_id'];
+        //   return obj;
+        // });
 
-        return positionMaps;
+        return resData;
       })
     );
   }
@@ -54,17 +54,17 @@ export class PlacesService {
       .get<any[]>(`${this.healthChangeUrl}/listByUserId/${userId}`)
       .pipe(
         map((resData) => {
-          const healthChanges = resData.map(function (obj) {
-            obj['id'] = obj['_id'];
-            delete obj['_id'];
-            return obj;
-          });
+          //   const healthChanges = resData.map(function (obj) {
+          //     obj['id'] = obj['_id'];
+          //     delete obj['_id'];
+          //     return obj;
+          //   });
 
-          console.log(
-            'loadHealthChanges result healthChanges: ',
-            healthChanges
-          );
-          return _.orderBy(healthChanges, ['eventDate'], ['desc']);
+          //   console.log(
+          //     'loadHealthChanges result healthChanges: ',
+          //     healthChanges
+          //   );
+          return _.orderBy(resData, ['eventDate'], ['desc']);
         })
       );
   }

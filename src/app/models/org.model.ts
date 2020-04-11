@@ -7,7 +7,7 @@ export interface IOrg {
 }
 export class Org implements IOrg {
   constructor(
-    public id: string,
+    public _id: string,
     public creatorId: string,
     public name: string,
     public description: string,

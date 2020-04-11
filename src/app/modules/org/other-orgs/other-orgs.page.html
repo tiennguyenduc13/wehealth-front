@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/org/tabs"></ion-back-button>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Join Others Orgs</ion-title>
+    <ion-title>Other Orgs</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -17,6 +17,12 @@
         <ion-list *ngIf="!isLoading && orgs.length > 0">
           <ion-item-sliding *ngFor="let org of orgs">
             <app-org-item [org]="org"></app-org-item>
+            <span class="space-left">></span>
+            <ion-item-options>
+              <ion-item-option color="normal" (click)="onJoin(org._id)">
+                <ion-icon name="color-filter" slot="icon-only"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
           </ion-item-sliding>
         </ion-list>
       </ion-col>

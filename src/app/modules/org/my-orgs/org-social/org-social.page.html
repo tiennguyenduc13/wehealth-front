@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>{{org ? org.name : ''}} Social</ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="isLoading" class="ion-text-center">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+  <form [formGroup]="form" *ngIf="!isLoading">
+    <ion-grid style="height: 100%;">
+      <ion-row style="height: 60%;" text-center>
+        <ion-col>
+          <ion-list *ngFor="let message of messages">
+            <ion-item>
+              <ion-area>
+                <h3>{{message.text}}</h3>
+                <p>by {{message.userName}} at {{getTime(message.eventDate)}}</p>
+              </ion-area>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row style="height: 20%;" text-center>
+        <ion-col size="9">
+          <ion-item>
+            <ion-label position="floating">Enter message ...</ion-label>
+
+            <ion-input
+              type="text"
+              autocomplete
+              autocorrect
+              formControlName="messageText"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="3">
+          <ion-item>
+            <ion-button (click)="onSendMessage()" slot="end">
+              <ion-icon name="send" slot="icon-only"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row style="height: 20%;" text-center>
+        <ion-col>
+          <ion-button (click)="onShowMembers()" color="primary" expand="block">
+            People
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button (click)="onInvite()" color="primary" expand="block">
+            Invite
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button (click)="onLeaveOrg()" color="primary" expand="block">
+            Leave
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

@@ -1,21 +1,21 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MyOrgPage } from './my-org.page';
+import { JoinOrgPage } from './other-orgs.page';
 
-describe('MyOrgPage', () => {
-  let component: MyOrgPage;
-  let fixture: ComponentFixture<MyOrgPage>;
+describe('JoinOrgPage', () => {
+  let component: JoinOrgPage;
+  let fixture: ComponentFixture<JoinOrgPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MyOrgPage],
+      declarations: [JoinOrgPage],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MyOrgPage);
+    fixture = TestBed.createComponent(JoinOrgPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

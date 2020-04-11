@@ -23,12 +23,26 @@ export class OrgService {
     return this.http.get<any[]>(`${this.orgUrl}/listByMember/${userId}`).pipe(
       map((resData) => {
         console.log('loadOrgs result: ', resData);
-        const orgs: Org[] = _.map(resData, (orgData) => {
-          _.set(orgData, '_id', 'id');
-          return orgData;
-        });
-        console.log('loadOrgs result orgs: ', orgs);
-        return _.orderBy(orgs, ['eventDate'], ['desc']);
+        // const orgs: Org[] = resData.map(function (obj) {
+        //   obj['id'] = obj['_id'];
+        //   delete obj['_id'];
+        //   return obj;
+        // });
+        // console.log('loadOrgs result orgs: ', orgs);
+        return _.orderBy(resData, ['eventDate'], ['desc']);
+      })
+    );
+  }
+  loadOrg(orgId: string): Observable<Org> {
+    return this.http.get<any>(`${this.orgUrl}/${orgId}`).pipe(
+      map((resData) => {
+        // debugger;
+        // resData['id'] = resData['_id'];
+        // delete resData['_id'];
+        // return resData;
+
+        console.log('loadOrg result: ', resData);
+        return resData;
       })
     );
   }
@@ -38,12 +52,14 @@ export class OrgService {
       .pipe(
         map((resData) => {
           console.log('loadOrgs result: ', resData);
-          const orgs: Org[] = _.map(resData, (orgData) => {
-            _.set(orgData, '_id', 'id');
-            return orgData;
-          });
-          console.log('loadOrgs result orgs: ', orgs);
-          return _.orderBy(orgs, ['eventDate'], ['desc']);
+          //   const orgs: Org[] = resData.map(function (obj) {
+          //     obj['id'] = obj['_id'];
+          //     delete obj['_id'];
+          //     return obj;
+          //   });
+
+          //   console.log('loadOrgs result orgs: ', orgs);
+          return _.orderBy(resData, ['eventDate'], ['desc']);
         })
       );
   }
@@ -53,5 +69,12 @@ export class OrgService {
       ...org,
       id: null,
     });
+  }
+  addMember(orgId: string, memberId: string) {
+    console.log('addMember', orgId, memberId);
+    return this.http.post<IOrg>(
+      this.orgUrl + `/addMember/${orgId}/${memberId}`,
+      {}
+    );
   }
 }

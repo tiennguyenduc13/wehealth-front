@@ -7,7 +7,7 @@ export interface ISetting {
 }
 export class Setting implements ISetting {
   constructor(
-    public id: string,
+    public _id: string,
     public userId: string,
     public alertDistance: {
       enabled: boolean;

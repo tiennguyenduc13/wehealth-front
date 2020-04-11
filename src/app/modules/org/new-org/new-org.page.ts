@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, AlertController } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { OrgService } from '../../../../services/org.service';
-import { AuthService } from '../../../../services/auth.service';
-import { IOrg, Org } from '../../../../models/org.model';
+import { OrgService } from '../../../services/org.service';
+import { AuthService } from '../../../services/auth.service';
+import { IOrg, Org } from '../../../models/org.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -15,9 +15,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class NewOrgPage implements OnInit {
   isLoading = false;
   form: FormGroup;
-  org: Org;
+  org: IOrg;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private orgService: OrgService,
     private authService: AuthService,
@@ -29,8 +30,13 @@ export class NewOrgPage implements OnInit {
     console.log('ttt ngOnInit');
     this.route.paramMap.subscribe((paramMap) => {
       console.log('ttt2 ngOnInit', paramMap);
-      this.org = new Org('', this.authService.userId, '', '', new Date(), []);
-
+      this.org = {
+        creatorId: this.authService.userId,
+        name: '',
+        description: '',
+        eventDate: new Date(),
+        members: [],
+      };
       this.form = new FormGroup({
         name: new FormControl('', {
           updateOn: 'blur',
@@ -55,7 +61,6 @@ export class NewOrgPage implements OnInit {
       })
       .then((loadingEl) => {
         loadingEl.present();
-        debugger;
         console.log(this.isLoading);
         this.org.name = this.form.value.name;
         this.org.description = this.form.value.description;
@@ -72,6 +77,7 @@ export class NewOrgPage implements OnInit {
                   text: 'Okay',
                   handler: () => {
                     console.log('Save done');
+                    this.router.navigate(['/org/tabs']);
                   },
                 },
               ],

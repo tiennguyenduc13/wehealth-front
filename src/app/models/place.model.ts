@@ -5,7 +5,7 @@ export interface IHealthChange {
 }
 export class HealthChange implements IHealthChange {
   constructor(
-    public id: string,
+    public _id: string,
     public userId: string,
     public eventDate: Date,
     public healthSignals: string[]

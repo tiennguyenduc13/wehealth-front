@@ -7,7 +7,7 @@ export interface IProfile {
 }
 export class Profile implements IProfile {
   constructor(
-    public id: string,
+    public _id: string,
     public userId: string,
     public email: string,
     public cellPhone: string,

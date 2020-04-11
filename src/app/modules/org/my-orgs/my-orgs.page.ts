@@ -4,11 +4,11 @@ import { OrgService } from 'src/app/services/org.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-join-org',
-  templateUrl: './join-org.page.html',
-  styleUrls: ['./join-org.page.scss'],
+  selector: 'app-my-orgs',
+  templateUrl: './my-orgs.page.html',
+  styleUrls: ['./my-orgs.page.scss'],
 })
-export class JoinOrgPage implements OnInit {
+export class MyOrgsPage implements OnInit {
   isLoading = false;
   orgs: Org[] = [];
 
@@ -21,13 +21,11 @@ export class JoinOrgPage implements OnInit {
 
   loadOrgs() {
     this.isLoading = true;
-    this.orgService
-      .loadOrgsExceptMember(this.authService.userId)
-      .subscribe((orgs) => {
-        this.isLoading = false;
-        this.orgs = orgs;
-        console.log('ttt ionViewWillEnter', this.orgs);
-      });
+    this.orgService.loadOrgs(this.authService.userId).subscribe((orgs) => {
+      this.isLoading = false;
+      this.orgs = orgs;
+      console.log('ttt ionViewWillEnter', this.orgs);
+    });
   }
   ionViewWillEnter() {
     this.loadOrgs();

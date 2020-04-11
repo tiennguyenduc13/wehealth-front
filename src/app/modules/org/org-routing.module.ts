@@ -9,13 +9,18 @@ const routes: Routes = [
     component: OrgPage,
     children: [
       {
-        path: 'join',
+        path: 'my-orgs',
+        redirectTo: '/org/tabs',
+        pathMatch: 'full',
+      },
+      {
+        path: 'other-orgs',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('./my-org/join-org/join-org.module').then(
-                (m) => m.JoinOrgPageModule
+              import('./other-orgs/other-orgs.module').then(
+                (m) => m.OtherOrgsPageModule
               ),
           },
         ],
@@ -26,8 +31,20 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('./my-org/new-org/new-org.module').then(
+              import('./new-org/new-org.module').then(
                 (m) => m.NewOrgPageModule
+              ),
+          },
+        ],
+      },
+      {
+        path: 'social/:orgId',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./my-orgs/org-social/org-social.module').then(
+                (m) => m.OrgSocialPageModule
               ),
           },
         ],
@@ -38,20 +55,22 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('./my-org/my-org.module').then((m) => m.MyOrgPageModule),
+              import('./my-orgs/my-orgs.module').then(
+                (m) => m.MyOrgsPageModule
+              ),
           },
         ],
       },
       {
         path: '',
-        redirectTo: '/org/tabs/my-org',
+        redirectTo: '/org/tabs/my-orgs',
         pathMatch: 'full',
       },
     ],
   },
   {
     path: '',
-    redirectTo: '/org/tabs/my-org',
+    redirectTo: '/org/tabs/my-orgs',
     pathMatch: 'full',
   },
 ];

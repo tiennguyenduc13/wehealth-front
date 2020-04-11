@@ -5,13 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { JoinOrgPage } from './join-org.page';
+import { OtherOrgsPage } from './other-orgs.page';
 import { OrgItemComponent } from './org-item/org-item.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: JoinOrgPage,
+    component: OtherOrgsPage,
   },
 ];
 
@@ -22,6 +22,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     IonicModule,
   ],
-  declarations: [JoinOrgPage, OrgItemComponent],
+  declarations: [OtherOrgsPage, OrgItemComponent],
 })
-export class JoinOrgPageModule {}
+export class OtherOrgsPageModule {}
