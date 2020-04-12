@@ -1,0 +1,19 @@
+<ion-item>
+  <!-- <ion-thumbnail slot="start">
+    <ion-img [src]="org.imageUrl"></ion-img>
+  </ion-thumbnail> -->
+  <ion-label>
+    <!-- <ion-textarea class="message">{{ invite.inviteText }}</ion-textarea> -->
+    <h1>{{ invite.inviteText }}</h1>
+    <div class="org-details">
+      <ion-icon name="calendar" color="primary"></ion-icon>
+      <ion-text color="tertiary" class="space-left">{{
+        invite.inviteDate | date
+      }}</ion-text>
+      :
+      <ion-text color="tertiary" class="space-left">{{
+        invite.inviteStatus
+      }}</ion-text>
+    </div>
+  </ion-label>
+</ion-item>

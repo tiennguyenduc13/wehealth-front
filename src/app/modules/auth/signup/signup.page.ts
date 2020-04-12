@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { LoadingController, AlertController } from '@ionic/angular';
-import { Observable } from 'rxjs';
 
-import { SignUpService, SignUpResponseData } from '../../../services/signup.service';
+import { SignUpService } from '../../../services/signup.service';
+import { ProfileService } from 'src/app/services/profile.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { IProfile, Profile } from 'src/app/models/profile.model';
 
 @Component({
   selector: 'app-signUp',
@@ -16,26 +18,44 @@ export class SignUpPage implements OnInit {
 
   constructor(
     private signUpService: SignUpService,
-    private router: Router,
+    private profileService: ProfileService,
     private loadingCtrl: LoadingController,
+    private router: Router,
     private alertCtrl: AlertController
   ) {}
 
   ngOnInit() {}
 
+  createProfile(email: string, userId: string) {
+    const profile: IProfile = {
+      email: email,
+      userId: userId,
+      name: '',
+      cellPhone: '',
+      dateOfBirth: new Date(null),
+      gender: 'na',
+    };
+    console.log('start Create profile ', profile);
+    debugger;
+    this.profileService
+      .updateProfile(profile.userId, profile)
+      .subscribe((newProfile: Profile) => {
+        console.log('Create profile done', newProfile);
+        this.router.navigateByUrl('/auth');
+      });
+  }
   signUpUser(email: string, password: string) {
     this.isLoading = true;
     this.loadingCtrl
       .create({ keyboardClose: true, message: 'Signing up...' })
       .then((loadingEl) => {
         loadingEl.present();
-        let signUpObs: Observable<SignUpResponseData>;
-        signUpObs = this.signUpService.signup(email, password);
-        signUpObs.subscribe(
+        this.signUpService.signup(email, password).subscribe(
           (resData) => {
             this.isLoading = false;
             loadingEl.dismiss();
-            this.router.navigateByUrl('/auth');
+            debugger;
+            this.createProfile(resData.email, resData.localId);
           },
           (errRes) => {
             loadingEl.dismiss();

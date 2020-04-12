@@ -1,16 +1,16 @@
-import { Component, OnInit } from "@angular/core";
-import { LoadingController, AlertController } from "@ionic/angular";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { LoadingController, AlertController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 
-import { ProfileService } from "../../services/profile.service";
-import { AuthService } from "../../services/auth.service";
-import { IProfile } from "../../models/profile.model";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { ProfileService } from '../../services/profile.service';
+import { AuthService } from '../../services/auth.service';
+import { IProfile, Profile } from '../../models/profile.model';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
-  selector: "app-profile",
-  templateUrl: "./profile.page.html",
-  styleUrls: ["./profile.page.scss"],
+  selector: 'app-profile',
+  templateUrl: './profile.page.html',
+  styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
   isLoading = false;
@@ -26,37 +26,41 @@ export class ProfilePage implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log("ttt ngOnInit");
+    console.log('ttt ngOnInit');
     this.route.paramMap.subscribe((paramMap) => {
-      console.log("ttt2 ngOnInit", paramMap);
+      console.log('ttt2 ngOnInit', paramMap);
       this.isLoading = true;
       this.profileService.loadProfile(this.authService.userId).subscribe(
         (profile: IProfile) => {
-          console.log("ttt23 ngOnInit", profile);
+          console.log('ttt23 ngOnInit', profile);
           this.profile = profile;
           this.form = new FormGroup({
             email: new FormControl(this.authService.loginName, {
-              updateOn: "blur",
+              updateOn: 'blur',
+              validators: [Validators.required],
+            }),
+            name: new FormControl(this.profile.name ? this.profile.name : '', {
+              updateOn: 'blur',
               validators: [Validators.required],
             }),
             cellPhone: new FormControl(
-              this.profile.cellPhone ? this.profile.cellPhone : "",
+              this.profile.cellPhone ? this.profile.cellPhone : '',
               {
-                updateOn: "blur",
+                updateOn: 'blur',
                 validators: [Validators.required],
               }
             ),
             dateOfBirth: new FormControl(
-              this.profile.dateOfBirth ? this.profile.dateOfBirth : "",
+              this.profile.dateOfBirth ? this.profile.dateOfBirth : '',
               {
-                updateOn: "blur",
+                updateOn: 'blur',
                 validators: [Validators.required],
               }
             ),
             gender: new FormControl(
-              this.profile.gender ? this.profile.gender : "",
+              this.profile.gender ? this.profile.gender : 'na',
               {
-                updateOn: "blur",
+                updateOn: 'blur',
                 validators: [Validators.required],
               }
             ),
@@ -66,13 +70,13 @@ export class ProfilePage implements OnInit {
         (error) => {
           this.alertCtrl
             .create({
-              header: "An error occurred!",
-              message: "Profile could not be fetched. Please try again later.",
+              header: 'An error occurred!',
+              message: 'Profile could not be fetched. Please try again later.',
               buttons: [
                 {
-                  text: "Okay",
+                  text: 'Okay',
                   handler: () => {
-                    console.log("error", error);
+                    console.log('error', error);
                   },
                 },
               ],
@@ -89,33 +93,35 @@ export class ProfilePage implements OnInit {
     // if (!this.form.valid) {
     //   return;
     // }
-    console.log("enter onUpdateProfile");
+    console.log('enter onUpdateProfile');
     this.loadingCtrl
       .create({
-        message: "Updating profile...",
+        message: 'Updating profile...',
       })
       .then((loadingEl) => {
         loadingEl.present();
         this.profile.email = this.form.value.email;
+        this.profile.name = this.form.value.name;
         this.profile.cellPhone = this.form.value.cellPhone;
         this.profile.dateOfBirth = this.form.value.dateOfBirth;
         this.profile.gender = this.form.value.gender;
-        console.log("onUpdateProfile this.profile", this.profile);
+        console.log('onUpdateProfile this.profile', this.profile);
 
         this.profileService
           .updateProfile(this.authService.userId, this.profile)
-          .subscribe(() => {
+          .subscribe((newProfile: Profile) => {
+            console.log('Update profile done', newProfile);
             loadingEl.dismiss();
 
             this.alertCtrl
               .create({
-                header: "Profile",
-                message: "Profile saved!",
+                header: 'Profile',
+                message: 'Profile saved!',
                 buttons: [
                   {
-                    text: "Okay",
+                    text: 'Okay',
                     handler: () => {
-                      console.log("Save done");
+                      console.log('Save done');
                     },
                   },
                 ],

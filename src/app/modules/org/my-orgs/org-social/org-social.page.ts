@@ -5,15 +5,12 @@ import { ActivatedRoute } from '@angular/router';
 import { OrgService } from '../../../../services/org.service';
 import { AuthService } from '../../../../services/auth.service';
 import { Org } from '../../../../models/org.model';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  AbstractControl,
-} from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Message, IMessage } from 'src/app/models/message.model';
 import { MessageService } from 'src/app/services/message.service';
 import * as util from '../../../../shared/util';
+import { InviteService } from 'src/app/services/invite.service';
+import { IInvite, Invite } from 'src/app/models/invite.model';
 
 @Component({
   selector: 'app-org',
@@ -23,6 +20,7 @@ import * as util from '../../../../shared/util';
 export class OrgSocialPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
+    private inviteService: InviteService,
     private orgService: OrgService,
     private authService: AuthService,
     private messageService: MessageService,
@@ -106,7 +104,7 @@ export class OrgSocialPage implements OnInit {
   onInvite() {
     this.alertCtrl
       .create({
-        header: 'Invite someone',
+        header: 'Invite someone to: ' + this.org.name,
         message: 'Enter invitee\'s email:',
         inputs: [
           {
@@ -126,9 +124,25 @@ export class OrgSocialPage implements OnInit {
           },
           {
             text: 'Send Invitation',
-            handler: (email) => {
-              console.log('Confirm Okay');
-              this.sendInvitation(this.org._id, this.authService.userId, email);
+            handler: (emailObj) => {
+              const newInvite: IInvite = {
+                inviterId: this.authService.userId,
+                inviterEmail: this.authService.loginName,
+                inviteDate: new Date(),
+                orgId: this.org._id,
+                inviteStatus: 'pending',
+                inviteeId: '',
+                inviteeEmail: emailObj.email,
+                acceptDate: new Date(+0),
+                inviteText:
+                  'Invitation to join:' +
+                  this.org.name +
+                  ', from ' +
+                  this.authService.loginName,
+              };
+
+              console.log('Confirm Okay newInvite ', newInvite);
+              this.sendInvitation(newInvite);
             },
           },
         ],
@@ -138,11 +152,11 @@ export class OrgSocialPage implements OnInit {
       });
   }
 
-  sendInvitation(orgId: string, userId: string, inviteeEmail: string) {
-    // this.isLoading = true;
-    // this.orgService.addMember(orgId, memberId).subscribe((org: Org) => {
-    //   console.log('Added', org.members);
-    //   this.isLoading = false;
-    // });
+  sendInvitation(newInvite: IInvite) {
+    this.isLoading = true;
+    this.inviteService.addInvite(newInvite).subscribe((invite: Invite) => {
+      console.log('Added', invite);
+      this.isLoading = false;
+    });
   }
 }

@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './modules/auth/login/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'places', pathMatch: 'full' },
+  { path: '', redirectTo: 'health', pathMatch: 'full' },
   {
     path: 'auth',
     loadChildren: () =>
@@ -18,15 +18,23 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'places',
+    path: 'health',
     loadChildren: () =>
-      import('./modules/places/places.module').then((m) => m.PlacesPageModule),
+      import('./modules/health/health.module').then((m) => m.HealthPageModule),
     canLoad: [AuthGuard],
   },
   {
     path: 'org',
     loadChildren: () =>
       import('./modules/org/org.module').then((m) => m.OrgPageModule),
+    canLoad: [AuthGuard],
+  },
+  {
+    path: 'mailbox',
+    loadChildren: () =>
+      import('./modules/mailbox/mailbox.module').then(
+        (m) => m.MailboxPageModule
+      ),
     canLoad: [AuthGuard],
   },
   {

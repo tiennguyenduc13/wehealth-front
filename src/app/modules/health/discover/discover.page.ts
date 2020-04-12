@@ -6,23 +6,23 @@ import {
   ElementRef,
   Renderer2,
   OnDestroy,
-} from "@angular/core";
+} from '@angular/core';
 
-import { environment } from "../../../../environments/environment";
-import { Plugins, Capacitor, GeolocationPosition } from "@capacitor/core";
-import { AuthService } from "src/app/services/auth.service";
-import { PlacesService } from "../../../services/places.service";
-import { IPositionMap } from "../../../models/position-map.model";
-import { BackgroundMode } from "@ionic-native/background-mode/ngx";
-import { Platform } from "@ionic/angular";
+import { environment } from '../../../../environments/environment';
+import { Plugins, Capacitor, GeolocationPosition } from '@capacitor/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { HealthService } from '../../../services/health.service';
+import { IPositionMap } from '../../../models/position-map.model';
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
+import { Platform } from '@ionic/angular';
 
 @Component({
-  selector: "app-discover",
-  templateUrl: "./discover.page.html",
-  styleUrls: ["./discover.page.scss"],
+  selector: 'app-discover',
+  templateUrl: './discover.page.html',
+  styleUrls: ['./discover.page.scss'],
 })
 export class DiscoverPage implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild("map", { static: false }) mapElementRef: ElementRef;
+  @ViewChild('map', { static: false }) mapElementRef: ElementRef;
   // WhiteHouse lat/lng
   center = { lat: 38.897957, lng: -77.03656 };
   googleMaps: any;
@@ -34,15 +34,15 @@ export class DiscoverPage implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private renderer: Renderer2,
     private authService: AuthService,
-    private placeService: PlacesService,
+    private placeService: HealthService,
     public backgroundMode: BackgroundMode,
     public platform: Platform
   ) {}
   ionViewWillEnter() {
-    console.log("ionViewWillEnter enter ", new Date());
+    console.log('ionViewWillEnter enter ', new Date());
     this.platform.ready().then(() => {
-      this.backgroundMode.on("activate").subscribe(() => {
-        console.log("ionViewWillEnter activated:---------- ", new Date());
+      this.backgroundMode.on('activate').subscribe(() => {
+        console.log('ionViewWillEnter activated:---------- ', new Date());
         this.doInterval();
       });
 
@@ -50,7 +50,7 @@ export class DiscoverPage implements OnInit, AfterViewInit, OnDestroy {
     });
   }
   doInterval() {
-    console.log("doInterval doing Timer ", new Date().toString());
+    console.log('doInterval doing Timer ', new Date().toString());
     this.updatePosition();
     setTimeout(() => {
       this.doInterval();
@@ -96,24 +96,24 @@ export class DiscoverPage implements OnInit, AfterViewInit, OnDestroy {
     return this.placeService.loadPositionMaps();
   }
   findMasterHealthSignal(healthSignals: string[]) {
-    let master = "normal";
-    master = healthSignals.includes("exposed") ? "exposed" : master;
-    master = healthSignals.includes("symptoms") ? "symptoms" : master;
-    master = healthSignals.includes("positive") ? "positive" : master;
+    let master = 'normal';
+    master = healthSignals.includes('exposed') ? 'exposed' : master;
+    master = healthSignals.includes('symptoms') ? 'symptoms' : master;
+    master = healthSignals.includes('positive') ? 'positive' : master;
 
     return master;
   }
 
   findIconImage(healthSignal: string) {
-    return "assets/icon/health/" + healthSignal + ".png";
+    return 'assets/icon/health/' + healthSignal + '.png';
   }
   shouldShowMarker(healthSignals: string[]): boolean {
     if (
       healthSignals &&
       healthSignals.length &&
-      (healthSignals.includes("positive") ||
-        healthSignals.includes("symptoms") ||
-        healthSignals.includes("exposed"))
+      (healthSignals.includes('positive') ||
+        healthSignals.includes('symptoms') ||
+        healthSignals.includes('exposed'))
     ) {
       return true;
     }
@@ -131,8 +131,8 @@ export class DiscoverPage implements OnInit, AfterViewInit, OnDestroy {
     this.loadPositionMaps().subscribe((positionMaps: IPositionMap[]) => {
       // set marker for me
       let marker = this.createMarker(
-        "Me",
-        this.createIcon("assets/icon/itsme.png", 25),
+        'Me',
+        this.createIcon('assets/icon/itsme.png', 25),
         this.center
       );
       marker.setMap(this.mainMap);
@@ -166,12 +166,12 @@ export class DiscoverPage implements OnInit, AfterViewInit, OnDestroy {
           center: this.center,
           zoom: 16,
         });
-        console.log("this.mainMap1", this.mainMap);
+        console.log('this.mainMap1', this.mainMap);
         this.addMarkers();
 
-        this.googleMaps.event.addListenerOnce(this.mainMap, "idle", () => {
-          console.log("this.mainMap2 idle");
-          this.renderer.addClass(mapEl, "visible");
+        this.googleMaps.event.addListenerOnce(this.mainMap, 'idle', () => {
+          console.log('this.mainMap2 idle');
+          this.renderer.addClass(mapEl, 'visible');
         });
       })
       .catch((err) => {
@@ -179,8 +179,8 @@ export class DiscoverPage implements OnInit, AfterViewInit, OnDestroy {
       });
   }
   locateUser(): Promise<GeolocationPosition> {
-    if (!Capacitor.isPluginAvailable("Geolocation")) {
-      console.log("Capacitor Geolocation not Available!!!");
+    if (!Capacitor.isPluginAvailable('Geolocation')) {
+      console.log('Capacitor Geolocation not Available!!!');
       return;
     }
     this.isLoading = true;
@@ -197,9 +197,9 @@ export class DiscoverPage implements OnInit, AfterViewInit, OnDestroy {
       return Promise.resolve(googleModule.maps);
     }
     return new Promise((resolve, reject) => {
-      const script = document.createElement("script");
+      const script = document.createElement('script');
       script.src =
-        "https://maps.googleapis.com/maps/api/js?key=" +
+        'https://maps.googleapis.com/maps/api/js?key=' +
         environment.googleMapsAPIKey;
       script.async = true;
       script.defer = true;
@@ -207,11 +207,11 @@ export class DiscoverPage implements OnInit, AfterViewInit, OnDestroy {
       script.onload = () => {
         const loadedGoogleModule = win.google;
         if (loadedGoogleModule && loadedGoogleModule.maps) {
-          console.log("resolve map");
+          console.log('resolve map');
           resolve(loadedGoogleModule.maps);
         } else {
-          console.log("reject map");
-          reject("Google maps SDK not available.");
+          console.log('reject map');
+          reject('Google maps SDK not available.');
         }
       };
     });

@@ -70,8 +70,8 @@ export class NewOrgPage implements OnInit {
 
           this.alertCtrl
             .create({
-              header: 'Org',
-              message: 'Org saved!',
+              header: 'Group',
+              message: 'Group saved!',
               buttons: [
                 {
                   text: 'Okay',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PlacesService } from '../../../services/places.service';
-import { HealthChange } from '../../../models/place.model';
+import { HealthService } from '../../../services/health.service';
+import { HealthChange } from '../../../models/health.model';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class HealthChangePage implements OnInit {
   healthChanges: HealthChange[];
 
   constructor(
-    private placesService: PlacesService,
+    private healthService: HealthService,
     private authService: AuthService
   ) {}
 
@@ -21,7 +21,7 @@ export class HealthChangePage implements OnInit {
 
   loadHealthChanges() {
     this.isLoading = true;
-    this.placesService
+    this.healthService
       .loadHealthChanges(this.authService.userId)
       .subscribe((healthChanges) => {
         this.isLoading = false;
@@ -34,10 +34,13 @@ export class HealthChangePage implements OnInit {
     this.loadHealthChanges();
   }
 
-  onDelete(id: string) {
+  onDelete(healthChangeId: string) {
     this.isLoading = true;
-    this.placesService.deleteHealthChange(id).subscribe((healthChangeId) => {
-      this.loadHealthChanges();
-    });
+    this.healthService
+      .deleteHealthChange(healthChangeId)
+      .subscribe((deletedHealthChangeId) => {
+        this.loadHealthChanges();
+        this.isLoading = false;
+      });
   }
 }

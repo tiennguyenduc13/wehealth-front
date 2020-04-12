@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { take, map, tap, switchMap } from 'rxjs/operators';
-import { IPositionMap, PositionMap } from '../models/position-map.model';
+import { map } from 'rxjs/operators';
+import { IPositionMap } from '../models/position-map.model';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { IHealthChange, HealthChange } from '../models/place.model';
+import { IHealthChange, HealthChange } from '../models/health.model';
 import { environment } from '../../environments/environment';
 import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root',
 })
-export class PlacesService {
+export class HealthService {
   private healthChangeUrl = environment.backendUrl + '/health-change';
   private _healthChanges = new BehaviorSubject<IHealthChange[]>([]);
   private positionMapUrl = environment.backendUrl + '/position-map';
@@ -38,12 +38,6 @@ export class PlacesService {
   loadPositionMaps(): Observable<IPositionMap[]> {
     return this.http.get<IPositionMap[]>(`${this.positionMapUrl}/list`).pipe(
       map((resData) => {
-        // const positionMaps = resData.map(function (obj) {
-        //   obj['id'] = obj['_id'];
-        //   delete obj['_id'];
-        //   return obj;
-        // });
-
         return resData;
       })
     );
@@ -54,16 +48,6 @@ export class PlacesService {
       .get<any[]>(`${this.healthChangeUrl}/listByUserId/${userId}`)
       .pipe(
         map((resData) => {
-          //   const healthChanges = resData.map(function (obj) {
-          //     obj['id'] = obj['_id'];
-          //     delete obj['_id'];
-          //     return obj;
-          //   });
-
-          //   console.log(
-          //     'loadHealthChanges result healthChanges: ',
-          //     healthChanges
-          //   );
           return _.orderBy(resData, ['eventDate'], ['desc']);
         })
       );

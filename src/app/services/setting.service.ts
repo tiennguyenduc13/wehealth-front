@@ -29,6 +29,7 @@ export class SettingService {
         .pipe(
           map((resData: ISetting) => {
             console.log('ttt updateSetting resData', resData);
+            return resData;
           })
         );
     }

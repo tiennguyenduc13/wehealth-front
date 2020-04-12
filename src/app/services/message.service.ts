@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { take, map, tap, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IMessage, Message } from '../models/message.model';
@@ -22,13 +22,6 @@ export class MessageService {
   loadMessages(orgId: string): Observable<Message[]> {
     return this.http.get<any[]>(`${this.messageUrl}/listByOrgId/${orgId}`).pipe(
       map((resData) => {
-        // const messages = resData.map(function (obj) {
-        //   obj['id'] = obj['_id'];
-        //   delete obj['_id'];
-        //   return obj;
-        // });
-
-        // console.log('loadMessages result messages: ', messages);
         return _.orderBy(resData, ['eventDate'], ['desc']);
       })
     );
